@@ -2,10 +2,12 @@
  *--------------------------------------------------------------
  *
  * Author: Rhiannon Jones
- * Date  : February 2017
+ * Date  : June 2017
  *
  *
 */
+#ifndef FUNCTION_DEFS
+#define FUNCTION_DEFS
 
 #include <fstream>
 #include <vector>
@@ -82,6 +84,18 @@ void HistStacker ( vector< TH1D* >   &hists,
                    const char* y_axis );
 
 // -------------------------------------------------------------------------
+// Histogram stacking with statistical errors
+// -------------------------------------------------------------------------
+
+void ErrHistStacker ( vector< TH1D* >   &hists,
+                   vector< string >  &leg_entries,
+                   vector< double >  &norm,
+                   const char* title,
+                   const char* file_name,
+                   const char* x_axis,
+                   const char* y_axis );
+
+// -------------------------------------------------------------------------
 // Calculating the reconstructed energy of the neutrinos to compare with the 
 // MC value
 // -------------------------------------------------------------------------
@@ -105,10 +119,10 @@ void FSPNumbers( TTree *event_tree,
 void FSINumbers( TTree *event_tree,
                  ostream &file,
                  double norm,
+                 vector< double > &n_cc_proc,
+                 vector< double > &n_nc_proc,
                  vector< double > &n_cc_fsi,
-                 vector< double > &n_nc_fsi,
-                 vector< double > &n_cc_mc_fsi,
-                 vector< double > &n_nc_mc_fsi );
+                 vector< double > &n_nc_fsi );
 
 // -------------------------------------------------------------------------
 // Make a table to compare the number of different final state particles
@@ -116,7 +130,12 @@ void FSINumbers( TTree *event_tree,
 // -------------------------------------------------------------------------
 void MakeTable( const m_outer &n_cc_vect,
                 const m_outer &n_nc_vect,
+                const m_outer &n_cc_proc_vect,
+                const m_outer &n_nc_proc_vect,
                 const vector< string > interactions,
+                const vector< string > processes,
                 ostream &file );
 
 // -------------------------------------------------------------------------
+
+#endif
